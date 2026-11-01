@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 할 일 목록</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="todo-card">
+    <h1 class="title">나의 할 일 목록</h1>
+
+    <!-- 할 일 입력 영역 -->
+    <div class="todo-input">
+      <input id="todo-input" type="text" placeholder="할 일을 입력하세요" aria-label="할 일 입력">
+      <button id="add-button" type="button">추가</button>
+    </div>
+
+    <!-- 필터 버튼 영역 -->
+    <div class="todo-filters" role="group" aria-label="할 일 필터">
+      <button class="filter-button" type="button" data-filter="all" aria-pressed="true">전체</button>
+      <button class="filter-button" type="button" data-filter="active" aria-pressed="false">진행중</button>
+      <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">완료</button>
+    </div>
+
+    <!-- 할 일 개수 표시와 일괄 삭제 영역 -->
+    <div class="todo-status">
+      <p id="todo-count" class="todo-count" aria-live="polite"></p>
+      <button id="clear-completed-button" class="delete-button" type="button">완료된 항목 삭제</button>
+    </div>
+
+    <!-- 할 일 목록 영역 -->
+    <ul id="todo-list" class="todo-list"></ul>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>

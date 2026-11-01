@@ -1,0 +1,242 @@
+/* 패딩을 포함해 크기를 계산 */
+* {
+  box-sizing: border-box;
+}
+
+/* 카드를 가로 중앙에 두고, 항목이 늘어나도 되도록 위쪽부터 배치 */
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 48px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #1f2937;
+  font-family: system-ui, -apple-system, "Malgun Gothic", sans-serif;
+}
+
+/* 흰색 카드 */
+.todo-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(31, 41, 55, 0.1);
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 입력창과 추가 버튼을 한 줄로 배치 */
+.todo-input {
+  display: flex;
+  gap: 8px;
+}
+
+/* 입력창이 남은 너비를 채움 (min-width: 0은 좁은 화면에서 넘침 방지) */
+#todo-input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  color: inherit;
+  font-family: inherit;
+  font-size: 16px;
+  transition: border-color 0.15s ease;
+}
+
+#todo-input::placeholder {
+  color: #6b7280;
+}
+
+/* 입력 중인 칸을 강조색으로 표시 */
+#todo-input:focus-visible {
+  outline: 3px solid #bfdbfe;
+  border-color: #2563eb;
+}
+
+#add-button {
+  flex-shrink: 0;
+  height: 48px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+/* 호버 시 조금 어둡게 */
+#add-button:hover {
+  background: #1d4ed8;
+}
+
+/* 키보드 사용자를 위한 포커스 표시 */
+#add-button:focus-visible {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 2px;
+}
+
+/* 필터 버튼을 같은 너비로 한 줄에 배치 */
+.todo-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-button {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: inherit;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.filter-button:hover {
+  background: #f3f4f6;
+}
+
+/* 현재 선택된 필터를 강조색으로 표시 */
+.filter-button[aria-pressed="true"] {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.filter-button[aria-pressed="true"]:hover {
+  background: #1d4ed8;
+}
+
+/* 키보드 사용자를 위한 포커스 표시 */
+.filter-button:focus-visible {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 2px;
+}
+
+/* 개수와 일괄 삭제 버튼을 양쪽 끝에 배치 (좁은 화면에서는 줄바꿈) */
+.todo-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* 전체/완료 개수 표시 */
+.todo-count {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* 목록 기본 점과 여백 제거 */
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 할 일 한 줄 */
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 4px;
+}
+
+/* display: flex가 hidden 속성을 덮어쓰지 않도록 필터로 숨긴 항목을 명시 */
+.todo-item[hidden] {
+  display: none;
+}
+
+/* 필터 적용 중에도 보이는 항목 사이에만 구분선 표시 */
+.todo-item:not([hidden]) ~ .todo-item {
+  border-top: 1px solid #e5e7eb;
+}
+
+/* 체크박스와 글자를 묶어 삭제 버튼을 뺀 너비를 채움 */
+.todo-label {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.todo-label input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+/* 긴 내용은 줄바꿈 */
+.todo-text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* 완료된 항목은 취소선과 흐린 글자색으로 표시 */
+.todo-item.completed .todo-text {
+  color: #6b7280;
+  text-decoration: line-through;
+}
+
+/* 추가 버튼보다 눈에 덜 띄는 삭제 버튼 */
+.delete-button {
+  flex-shrink: 0;
+  height: 32px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #dc2626;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+/* 호버 시 옅은 빨간색 배경 */
+.delete-button:hover {
+  background: #fee2e2;
+}
+
+/* 지울 항목이 없을 때의 일괄 삭제 버튼 */
+.delete-button:disabled {
+  background: transparent;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+/* 키보드 사용자를 위한 포커스 표시 */
+.delete-button:focus-visible {
+  outline: 3px solid #fecaca;
+  outline-offset: 2px;
+}
