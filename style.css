@@ -240,3 +240,77 @@ body {
   outline: 3px solid #fecaca;
   outline-offset: 2px;
 }
+
+/* 터치 기기에서는 손가락으로 누르기 쉽도록 조작 영역을 키움 */
+@media (pointer: coarse) {
+  .filter-button,
+  .delete-button {
+    height: 44px;
+  }
+
+  .todo-label input {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* 모바일: 화면을 넓게 쓰도록 바깥 여백과 글자 크기를 줄임 */
+@media (max-width: 480px) {
+  body {
+    padding: 16px 12px;
+  }
+
+  .todo-card {
+    padding: 24px 16px;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  #add-button {
+    padding: 0 16px;
+  }
+}
+
+/* 태블릿: 카드를 넓히고 여백을 늘림 */
+@media (min-width: 768px) {
+  .todo-card {
+    max-width: 640px;
+    padding: 40px 32px;
+  }
+}
+
+/* 데스크톱: 왼쪽에 입력과 필터, 오른쪽에 목록을 두는 2단 배치 */
+@media (min-width: 1024px) {
+  .todo-card {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto 1fr;
+    max-width: 960px;
+    column-gap: 32px;
+  }
+
+  .title {
+    grid-column: 1;
+    text-align: left;
+  }
+
+  .todo-input,
+  .todo-filters,
+  .todo-status {
+    grid-column: 1;
+  }
+
+  /* 항목이 많아도 왼쪽 입력창이 보이도록 목록만 스크롤 (176px은 body와 카드의 상하 여백 합) */
+  .todo-list {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    max-height: calc(100vh - 176px);
+    min-height: 240px;
+    padding: 0 8px 0 32px;
+    overflow-y: auto;
+    border-left: 1px solid #e5e7eb;
+  }
+}
